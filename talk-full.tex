@@ -1,0 +1,190 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\title{NColony}
+\subtitle{https://ncolony.org https://github.com/moshez/introducing-ncolony}
+\author{Moshe Zadka -- https://cobordism.com}
+\date{BayPiggies February 2018}
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{What is a process supervisor?}
+\begin{itemize}
+\item Run multiple processes \pause
+\item Restart crashed ones \pause
+\item (Optional) Adopt and reap \pause
+\item (Optional) Health checks
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Why do we need a supervisor?}
+\end{frame}
+
+\begin{frame}
+\frametitle{Existing supervisors}
+\begin{itemize}
+\item Systemd
+\item Supervisord
+\item Runit
+\item Monit
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Design principles -- run directly}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- Python}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- interpreter compatibility}
+\begin{itemize}
+\item 2/3
+\item PyPy/CPython
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- programmatic configuration}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- runtime reconfiguration}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- external health monitors}
+\end{frame}
+
+\begin{frame}
+\frametitle{Design principles -- 100\% unit test coverage}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Installing NColony}
+\begin{lstlisting}
+$ pip install ncolony
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Running NColony}
+\begin{lstlisting}
+$ python -m twisted ncolony \
+  --messages /var/run/messages/ \
+  --config /var/run/config/
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Configuring NColony}
+\begin{lstlisting}
+$ python -m ncolony --messages /var/run/messages \
+                    --config /var/run/config \
+  ctl add my-thing --cmd /my-thing.py
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Configuring NColony}
+\begin{lstlisting}
+$ python
+>>> from ncolony import ctllib
+>>> where = ctllib.Places('/var/run/config',
+                          '/var/run/messages')
+>>> ctllib.add(where, name='my-thing',
+                      cmd='/my-thing.py')
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Configuring NColony}
+\begin{lstlisting}
+$ cat > /var/run/config/my-thing << EOF
+{"args": ["/mything.py"]}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Configuring NColony}
+\begin{lstlisting}
+$ python -m ncolony --messages /var/run/messages \
+                    --config /var/run/config \
+  ctl remove my-thing
+$ python
+>>> from ncolony import ctllib
+>>> where = ctllib.Places('/var/run/config',
+                          '/var/run/messages')
+>>> ctllib.remove(where, name='my-thing')
+$ rm /var/run/config/my-thing
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony and heartbeat checking -- what are heartbeats?}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony and heartbeat checking -- configuration}
+\begin{lstlisting}
+NCOLONY_CONFIG
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony and heartbeat checking -- configuration}
+Custom JSON key
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony and heartbeat checking -- heartbeater}
+Twisted service
+Can be used in other environments
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony and heartbeat checking -- heartchecker}
+Configuration
+Using messages
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony Has}
+\begin{itemize}
+\item Adoption and reaping \pause
+\item Restart processes (specific or all) \pause
+\item Heart-beat checker \pause
+\item UID/GID support \pause
+\item 100\% Unit test coverage \pause
+\item PyLint cleanliness
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NColony Lacks}
+\begin{itemize}
+\item Daemon support \pause
+\item More contributors! \pause
+\item Lots of users!
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{TODO}
+\begin{itemize}
+\item Try it (especially in Docker) \pause
+\item Review PRs \pause
+\item Talk to me -- https://cobordism.com -- zadka.moshe@gmail.com
+\end{itemize}
+\end{frame}
+
+\end{document}
