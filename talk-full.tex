@@ -24,6 +24,7 @@
 
 \begin{frame}
 \frametitle{Why do we need a supervisor?}
+Crashes, hangs and reconfiguration
 \end{frame}
 
 \begin{frame}
@@ -39,10 +40,15 @@
 
 \begin{frame}
 \frametitle{Design principles -- run directly}
+\begin{itemize}
+\item Be the parent \pause
+\item No PID files
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Design principles -- Python}
+Crushing your process monitor sucks!
 \end{frame}
 
 \begin{frame}
@@ -55,18 +61,30 @@
 
 \begin{frame}
 \frametitle{Design principles -- programmatic configuration}
+\begin{itemize}
+\item In Dockerfiles
+\item In start-up code
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Design principles -- runtime reconfiguration}
+\begin{itemize}
+\item Add
+\item Remove
+\item Restart
+\item Reconfigure
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Design principles -- external health monitors}
+What is "healthy?"
 \end{frame}
 
 \begin{frame}
 \frametitle{Design principles -- 100\% unit test coverage}
+Smaller numbers are meaningless
 \end{frame}
 
 \begin{frame}[fragile]
@@ -131,6 +149,7 @@ $ rm /var/run/config/my-thing
 
 \begin{frame}[fragile]
 \frametitle{NColony and heartbeat checking -- what are heartbeats?}
+Files modification time
 \end{frame}
 
 \begin{frame}[fragile]
@@ -147,14 +166,18 @@ Custom JSON key
 
 \begin{frame}[fragile]
 \frametitle{NColony and heartbeat checking -- heartbeater}
-Twisted service
-Can be used in other environments
+\begin{itemize}
+\item Twisted service \pause
+\item Can be used in other environments
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{NColony and heartbeat checking -- heartchecker}
-Configuration
-Using messages
+\begin{itemize}
+\item Read ncolony configuration \pause
+\item Using messages
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
