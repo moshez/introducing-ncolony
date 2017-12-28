@@ -3,6 +3,8 @@ import shutil
 import subprocess
 
 shutil.copy('talk.tex', 'build/talk.tex')
+shutil.copy('talk-full.tex', 'build/talk-full.tex')
 #shutil.copy('configuration', 'build/configuration')
 #shutil.copy('defaults', 'build/defaults')
 subprocess.check_call(['pdflatex', 'talk.tex'], cwd='build')
+subprocess.check_call(['pdflatex', 'talk-full.tex'], cwd='build')
